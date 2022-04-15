@@ -236,7 +236,7 @@ img {
     }
 
     .hero-section {
-        padding: 8rem 0;
+        padding: 25rem 0;
         display: flex;
         justify-content: center;
         width: 100%;
@@ -552,6 +552,7 @@ img {
     .our-creation {
         .wrapper {
             .creation-cta {
+                margin-bottom: $body-copy * 5;
                 .cta {
                     left: $body-copy * 20;
                 }
@@ -654,7 +655,7 @@ img {
     // Feature section over here
 
     .features {
-        margin: ($body-copy * 4) 0;
+        margin: ($body-copy * 15) 0;
         .feature-detail {
             .row {
                 display: flex;
@@ -691,7 +692,7 @@ img {
     // Our creations over here
     .our-creation {
         padding-bottom: 0;
-        margin-top: $body-copy * 7;
+        margin-top: $body-copy * 5;
         .wrapper {
             @include wrap-up($max-width);
             .creation-cta {
@@ -719,6 +720,10 @@ img {
                 }
             
         }
+    }
+
+    .footer {
+        margin-top: $body-copy * 15;
     }
 
 }
