@@ -1,0 +1,724 @@
+
+/*
+========Variables========
+*/
+
+// view ports
+$mobile: 375px;
+$desktop: 1440px;
+$tablet: 768px;
+$laptop: 1024px;
+$max-width: 1000px;
+$log-size: 130px;
+
+// Colors
+// Primary
+$white:hsl(0, 0%, 100%);
+$black: hsl(0, 0%, 0%);
+$d-gray: hsl(0, 0%, 55%);
+$vd-gray: hsl(0, 0%, 41%);
+// Colors ends here
+
+// Typography
+$body-copy: 15px;
+$fw-medium: 400;
+$fw-light: 300;
+
+$primary-font: "Alata";
+$secondary-font: "Josefin Sans";
+$fall-back-font: 'Sans Serif';
+
+$font-weights : (
+    medium:  $fw-medium,
+    light: $fw-light
+);
+
+
+$font-families: (
+    heading: $primary-font,
+    body-text: $secondary-font
+);
+
+// Typography variables ends here
+
+// URL's variable (path for the imagery)
+$base-url: '../images/';
+$ext: '.svg';
+$rel-path: 'mobile/'; // since it's mobile first design we begin with mobile path for images
+
+$image-path: $base-url + $rel-path;
+
+
+
+
+// Maps for the imagery
+$icons : (
+    'icon-close': $base-url + 'icon-close' + $ext,
+    'facebook': $base-url + 'icon-facebook' + $ext,
+    'hambuger-menu': $base-url + 'icon-hamburger' + $ext,
+    'pinterest': $base-url + 'icon-pinterest' + $ext,
+    'instagram': $base-url + 'icon-instagram' + $ext,
+    'twitter': $base-url + 'icon-twiiter' + $ext,
+    'logo': $base-url + 'logo' + $ext
+);
+
+$ext2: '.jpg';
+
+$imagery: (
+    curiosity: 'image-curiosity' + $ext2,
+    deep-earth: 'image-deep-earth' + $ext2,
+    fisheye: 'image-fisheye' + $ext2,
+    from-above: 'image-from-above' + $ext2,
+    grid: 'image-grid' + $ext2,
+    hero: 'image-hero' + $ext2,
+    interactive: 'image-interactive' + $ext2,
+    night-arcad: 'image-night-arcade' + $ext2,
+    pocket-borealis: 'image-pocket-borealis' + $ext2,
+    soccer-team: 'image-soccer-team' + $ext2
+);
+
+$images: (
+    deep-earth,
+    night-arcade,
+    soccer-team,
+    grid,
+    from-above,
+    pocket-borealis,
+    curiosity,
+    fisheye
+);
+
+// maps for image ens here;
+/*
+========Variables section ends========
+*/
+
+// ===== Functions =======
+@function set-bg-img($path, $file) {
+    @return $path + $file;
+}
+
+@mixin wrap-up ($width) {
+    max-width: $width;
+    margin: 0 auto;
+}
+
+@mixin set-content-dimension($width, $height: $width) {
+    width: $width;
+    height: $height; 
+}
+
+@mixin image-fit($pos, $rep, $size) {
+    background-position: $pos;
+    background-repeat: $rep;
+    background-size: $size;
+}
+
+@mixin handy-flex($jus-content: flex-start, $align-cont: flex-start) {
+    display: flex;
+    justify-content: $jus-content;
+    align-items: $align-cont;
+}
+
+// General Styling
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: map-get($font-families, 'heading');
+    font-size: $body-copy;
+}
+
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: $black;
+    font-weight: 400;
+}
+
+// headings resets
+@for $i from 1 through 6 {
+    h#{$i} {
+        padding: 0;
+        margin: 0;
+        font-family: map-get($font-families, 'body-text');
+        font-weight: map-get($font-weights, 'light');
+    }
+}
+
+
+
+button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+.bar-container {
+    display: flex;
+    flex-direction: column;
+    gap: $body-copy - 11;
+}
+
+.bar {
+    width: $body-copy + 6;
+    height: $body-copy - 13;
+    background-color: $white;
+
+    &:nth-child(2) {
+        width: $body-copy + 3;
+    }
+}
+
+img {
+    width: 100%;
+    object-fit: cover;
+    height: auto;
+}
+
+// CSS for the nav bar in (desktop view)
+
+.header {
+    @include set-content-dimension(100%);
+    @include image-fit(center, no-repeat , cover);
+    background-image: url(set-bg-img($image-path, map-get($imagery, 'hero')));
+}
+
+.wrapper {
+    @include wrap-up($max-width);
+    padding-top: $body-copy * 3;
+    padding: $body-copy;
+
+    nav {
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: transparent;
+
+        .logo {
+            width: $log-size;
+            @include handy-flex(center, center)
+        }
+
+        .mobile-nav-container {
+            width: 100%;
+            @include handy-flex(flex-end, center);
+            flex: -1;
+
+            .mobile-menu {
+                display: flex;
+                gap: $body-copy * 2;
+
+                li {
+                    a {
+                        font-weight: map-get($font-weights, 'medium');
+                        color: $white;
+                        font-family: map-get($font-families, 'body-text')
+                    }
+                }
+            }
+        }
+
+        .mobile-hambuger {
+            @include handy-flex(center, center);
+            gap: 5px;
+            display: none;
+        }
+
+    }
+
+    .hero-section {
+        padding: 8rem 0;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        .hero-content {
+            width: 100%;
+            padding: $body-copy - 3;
+            border: 2px solid $white;
+        }
+    }
+
+}
+
+.big-heading {
+    font-family: map-get($font-families, 'body-text');
+    font-size: $body-copy * 2;
+    color: $white;
+    text-transform: uppercase;
+}
+
+.small-heading {
+    font-family: map-get($font-families, 'body-text');
+    text-transform: uppercase;
+    color: $white;
+    font-size: $body-copy + 10;
+}
+
+.cta {
+    padding: ($body-copy - 6) $body-copy + 25;
+    border: 2px solid $black;
+    transition: all 300ms cubic-bezier(0.42, 0, 0.64, 0.85);
+}
+
+// The Feature section starts here
+
+.features {
+    width: 100%;
+    
+    .feature-detail {
+        @include handy-flex(center, center);
+        height: auto;
+        margin-top: $body-copy + 20;
+
+        .row {
+            display: grid;
+            grid-template-columns: repeat(1, auto);
+            grid-template-rows: repeat(2, auto);
+            justify-items: center;
+
+            .img{
+                @include set-content-dimension(($max-width - $body-copy * 57));
+                background-image: url(set-bg-img($image-path, map-get($imagery,'interactive')));
+                @include image-fit(center, no-repeat, cover);
+            }
+
+            .col-2 .feature-text {
+                text-align: center;
+                padding: ($body-copy + 25) 0;
+
+                .text {
+                    line-height: $body-copy + 8;
+                    margin-top: $body-copy;
+                    color: $vd-gray;
+                    padding: 0 $body-copy + 20;
+                }
+            }
+        }
+    }
+}
+
+// Feature section ends here.
+
+// Our creations section starts here
+.our-creation {
+    margin-top: $body-copy * 2;
+    width: 100%;
+    padding: 0 $body-copy ;
+    @include handy-flex(center, center);
+    position: relative;
+    padding-bottom: 80px;
+
+    .wrapper {
+        width: 100%;
+        @include wrap-up(100%);
+        padding: 0;
+        .creation-cta {
+            margin-bottom: $body-copy + 10;
+            text-align: center;
+           
+           .cta {
+               position: absolute;
+               bottom: 0px;
+               display: inline-block;
+               z-index: 9999;
+               left: ($max-width / 8) - 60;
+               text-transform: uppercase;
+               letter-spacing: $body-copy - 7;
+               &:hover {
+                   border: 2px solid transparent;
+                   background-color: $black;
+                   color: $white;
+               }
+           }
+        }
+
+        .creation-gallery {
+            @include set-content-dimension(100%);
+            width: 100%;
+
+            .row {
+                display: grid;
+                width: 100%;
+                grid-template-columns: repeat(1, 1fr);
+                grid-template-rows: repeat(8, auto);
+                row-gap: $body-copy;
+                column-gap: $body-copy - 15;
+
+                .col-4 {
+                    @for $i from 1 to 8 {
+                        background-image: url(set-bg-img($image-path, map-get($imagery, 'fisheye')));
+
+                        @include image-fit(center, no-repeat, cover);
+                        @include set-content-dimension(100%, 130px);
+                        position: relative;
+                    }
+
+                    h3 {
+                        position: absolute;
+                        bottom: $body-copy - 5;
+                        left: $body-copy - 10;
+                    }
+                }
+            }
+        }
+    }
+
+}
+// Our creations section ends here
+
+// Footer section starts here
+
+.footer {
+    width: 100%;
+    background-color: $black;
+    color: $white;
+    @include handy-flex(center, center);
+    padding: ($body-copy * 4), $body-copy;
+    text-align: center;
+    margin-top: $body-copy * 6;
+
+    .wrapper {
+        width: 100%;
+        padding-top: $body-copy * 3;
+        .row {
+            width: inherit;
+
+            .col-2 {
+                @include handy-flex(center, center);
+                row-gap: $body-copy - 8;
+                flex-direction: column;
+                margin-bottom: $body-copy + 10;
+                
+                .site-map {
+                    @include handy-flex(center, center);
+                    margin: $body-copy*2 0;
+
+                    ul {
+                        @include handy-flex(center, center);
+                        flex-direction: column;
+                        row-gap: $body-copy * 2;
+
+                        li a{
+                            color: $white;
+                        }
+                    }
+                }
+
+                .social-link {
+                    @include handy-flex(center, center);
+                    flex-direction: row;
+                    column-gap: $body-copy ;
+                    margin-bottom: $body-copy;
+                    
+                    span {
+                        display: block;
+                        
+                        img {
+                            width: $body-copy * 2;
+                        }
+                    }
+
+                }
+
+                .copright {
+                    color: $d-gray;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
+// Footer ends here
+
+
+
+
+
+// Media querry for the responsive navBar
+
+@media screen and (max-width: 540px) {
+    .header {
+        position: relative;
+
+        .wrapper {
+
+            padding-top: $body-copy * 1;
+            
+            nav {
+                .logo {
+                    z-index: 9999;
+                }
+            }
+
+            .mobile-nav-container {
+                position: absolute;
+                top: -100vh;
+                left: 0;
+                transition: all 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                @include set-content-dimension(100%, 100vh);
+                background-color: $black;
+    
+                .mobile-menu {
+                    flex-direction: column;
+                    width: 100%;
+                    padding-left: $body-copy * 1;
+    
+                    li a {
+                        text-transform: uppercase;
+                        font-size: $body-copy * 1.5;
+                        font-weight: map-get($font-weights, 'light');
+                    }
+                }
+                &.active {
+                    top: 0;
+                }
+            }
+            
+            
+
+            .mobile-hambuger {
+                display: block;
+                z-index: 9999;
+                
+                .bar-container {
+                    
+                    .bar {
+                        transition: 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                        &:nth-child(2) {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+
+            
+        }
+    }
+
+   
+}
+
+// Media query for a tablet responsive section 
+
+@media screen and (min-width: $tablet) {
+    // reset some variables
+    $rel-path2: 'desktop/';
+    $image-path: $base-url + $rel-path2;
+
+    // Header section
+    .header {
+        background-image: url((set-bg-img($image-path, map-get($imagery, 'hero'))));
+
+        .wrapper {
+            .hero-section {
+                justify-content: flex-start;
+            }
+            .hero-content {
+                width: 60%;
+                padding-right: 5em;
+
+                .big-heading {
+                    font-size: $body-copy * 2.5;
+                    line-height: $body-copy + 30;
+                }
+            }
+        }
+    }
+
+    // Features section
+
+    .features {
+        .wrapper {
+            .row {
+                .img {
+                    @include set-content-dimension(($body-copy * 40), ($body-copy * 30));
+                    background-image: url(set-bg-img($image-path, map-get($imagery, 'interactive')));
+                }
+            }
+        }
+    }
+
+    // Our Creations section
+
+    .our-creation {
+        .wrapper {
+            .creation-cta {
+                .cta {
+                    left: $body-copy * 20;
+                }
+            }
+            .creation-gallery {
+                .row {
+                    grid-template-columns: repeat(3, 1fr);
+                    grid-template-rows: repeat(4, auto);
+                    row-gap: $body-copy * 3;
+                    column-gap: $body-copy;
+                   
+                    @for $i from 1 to 9 {
+
+                        .col-#{$i} {
+                            @include image-fit(center, no-repeat, cover);
+                            @include set-content-dimension(100%, 400px);
+                            position: relative;
+
+                            .small-heading {
+                                position: absolute;
+                                bottom: $body-copy + 5;
+                                left: $body-copy;
+                            }
+                        }
+                        
+                    }
+
+                    @each $image in $images {
+                        .col-#{index(($images), ($image))} {
+                            background: url('../images/desktop/image-#{$image}.jpg') !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Foote section
+    .footer {
+        .wrapper {
+            .row {
+                @include handy-flex(space-between, center);
+                width: 100%;
+                height: auto;
+
+                .col-2 {
+                    @include handy-flex(flex-start, center);
+                    flex-direction: column;
+                    align-items: flex-start;
+
+                    .logo {
+                        display: flex;
+                        justify-content: flex-start;
+                    }
+
+                    .site-map {
+                        margin: 0;
+                        ul {
+                            flex-direction: row;
+                            margin: 0;
+                            row-gap: 0;
+                            column-gap: $body-copy;
+                            margin-top: $body-copy;
+                        }
+                    }
+
+                    .social-link {
+                        width: 100%;
+                        justify-content: flex-end;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Media querry for the laptop section
+
+@media screen and (min-width: $laptop) {
+
+    // Header section here
+    .header {
+        .wrapper {
+            nav {
+                margin-top: $body-copy + 08;
+            }
+            .hero-section {
+                padding: ($body-copy * 10) 0;
+                .hero-content {
+                    width: 50%;
+                    .big-heading {
+                        font-size: $body-copy * 3.5;
+                        line-height: $body-copy * 3.8;
+                    }
+                }
+            }
+        }
+    }
+
+    // Feature section over here
+
+    .features {
+        margin: ($body-copy * 4) 0;
+        .feature-detail {
+            .row {
+                display: flex;
+                flex-basis: 100%;
+                width: 100%;
+                position: relative;
+                .img {
+                    @include set-content-dimension(70%, ($body-copy * 30 ));
+                }
+
+                .abs {
+                    width: 50%;
+                    .feature-text {
+                        position: absolute;
+                        bottom: 0;
+                        left: 48%;
+                        width: 60%;
+                        padding: $body-copy * 5;
+                        text-align: left;
+                        background-color: $white;
+
+                        .text {
+                            padding: 0;
+                            margin-top: $body-copy + 10;
+                        }
+                        
+                    }
+                }
+
+            }
+        }
+    }
+
+    // Our creations over here
+    .our-creation {
+        padding-bottom: 0;
+        margin-top: $body-copy * 7;
+        .wrapper {
+            @include wrap-up($max-width);
+            .creation-cta {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .big-heading {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 0 !important;
+                }
+                .cta {
+                    position: static;
+                    z-index: 9999;
+                    display: inline;
+                }
+
+            }
+
+                .creation-gallery {
+                    .row {
+                        grid-template-columns: repeat(4, 1fr);
+                        grid-template-rows: repeat(2, auto);
+                    }
+                }
+            
+        }
+    }
+
+}
